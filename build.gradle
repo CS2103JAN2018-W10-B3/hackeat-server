@@ -14,3 +14,6 @@ dependencies {
     compile group: "com.sparkjava", name: "spark-core", version: "2.7.1"
     compile group: "org.slf4j", name: "slf4j-simple", version: "1.7.21"
 }
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
