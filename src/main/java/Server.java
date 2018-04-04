@@ -1,3 +1,4 @@
+import static spark.Spark.port;
 import static spark.Spark.post;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class Server {
      * @param args
      */
     public static void main(String[] args) {
-
+        port(getHerokuAssignedPort());
         HashMap<String, String> map = new HashMap<>();
 
         // Stores order data in memory
@@ -24,5 +25,13 @@ public class Server {
 
         // Releases data to TwiML
         post("/order/:orderId", (req, res) -> map.get(req.params(":orderId")));
+    }
+
+    private static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
