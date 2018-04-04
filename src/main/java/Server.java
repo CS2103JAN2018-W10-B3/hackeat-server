@@ -1,4 +1,3 @@
-import static spark.Spark.port;
 import static spark.Spark.post;
 
 import java.util.HashMap;
@@ -13,7 +12,6 @@ public class Server {
      * @param args
      */
     public static void main(String[] args) {
-        port(4569);
 
         HashMap<String, String> map = new HashMap<>();
 
