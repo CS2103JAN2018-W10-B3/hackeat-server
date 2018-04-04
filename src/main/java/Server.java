@@ -1,9 +1,13 @@
 import static spark.Spark.post;
+import static spark.Spark.port;
 
 import java.util.HashMap;
 
 /**
  * A service which stores TwiML XML data or every order ID.
+ * Heroku setup thanks to:
+ * https://junhopark.com/posts/2016/08/10/...
+ * ...writing-and-deploying-a-simple-application-using-java-8-spark-gradle-heroku-intellij-idea
  */
 public class Server {
 
@@ -12,6 +16,11 @@ public class Server {
      * @param args
      */
     public static void main(String[] args) {
+        // In order for this to work on Heroku, we need to allow Heroku to set the port number
+        final String portNumber = System.getenv("PORT");
+        if (portNumber != null) {
+            port(Integer.parseInt(portNumber));
+        }
 
         HashMap<String, String> map = new HashMap<>();
 

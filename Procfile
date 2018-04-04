@@ -1,1 +1,1 @@
-web: java -Dserver.port=4567
+web: java $JAVA_OPTS -cp build/classes:build/libs/* Server
