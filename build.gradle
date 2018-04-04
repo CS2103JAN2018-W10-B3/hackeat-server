@@ -2,12 +2,6 @@ group 'HackEat-Server'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'application'
-
-mainClassName = 'Server'
-applicationName = 'app'
-
-defaultTasks = ['clean', 'jar']
 
 sourceCompatibility = 1.8
 
@@ -21,16 +15,5 @@ dependencies {
     compile group: "org.slf4j", name: "slf4j-simple", version: "1.7.21"
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'Server'
-    }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } {
-        // remove all signature files
-        exclude 'META-INF/*.SF'
-        exclude 'META-INF/*.DSA'
-        exclude 'META-INF/*.RSA'
-    }
-}
-
-task stage(dependsOn: ['clean', 'installApp'])
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
